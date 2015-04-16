@@ -10,20 +10,101 @@
 
     <Grid Margin="10,10,10,10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
             <RowDefinition Height="2*" />
+            <RowDefinition Height="3*" />
         </Grid.RowDefinitions>
 
+        <Grid Grid.Row="0"  Margin="10,0,10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Button Name="BackButton" Content="Back" Grid.Column="0" Grid.Row="0" Height="auto" Width="auto" />
+            <Button Name="ResetButton" Content="Reset" Grid.Column="0" Grid.Row="2" Height="auto" Width="auto" />
+
+            <Image Name="GameName" Source="Assets/title.png" Grid.Column="1" Grid.Row="1" />
+            
+            <TextBlock Name="BestScore" Text="Best: 0" Grid.Column="2" Grid.Row="0" Height="auto" Width="auto" />
+            <TextBlock Name="ActualScore" Text="Score: 0" Grid.Column="2" Grid.Row="2" Height="auto" Width="auto" />
+        </Grid>
         <Grid Grid.Row="1" Margin="0,0,0,0" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Rectangle Grid.Column="0" Fill="Red" Margin="0,0,0,0" />
-            <Rectangle Grid.Column="1" Fill="Green" Margin="0,0,0,0" />
-            <Rectangle Grid.Column="2" Fill="Blue" Margin="0,0,0,0" />
+            <Grid Name="TopLayer" Grid.Column="0" Margin="10,10,10,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Rectangle Name="T00" Grid.Column="0" Grid.Row="0" Fill="Aqua" Margin="0,0,0,0"/>
+                <Rectangle Name="T10" Grid.Column="1" Grid.Row="0" Fill="Blue" Margin="0,0,0,0"/>
+                <Rectangle Name="T20" Grid.Column="2" Grid.Row="0" Fill="BlueViolet" Margin="0,0,0,0"/>
+                <Rectangle Name="T01" Grid.Column="0" Grid.Row="1" Fill="Chartreuse" Margin="0,0,0,0"/>
+                <Rectangle Name="T11" Grid.Column="1" Grid.Row="1" Fill="Green" Margin="0,0,0,0"/>
+                <Rectangle Name="T21" Grid.Column="2" Grid.Row="1" Fill="SeaGreen" Margin="0,0,0,0"/>
+                <Rectangle Name="T02" Grid.Column="0" Grid.Row="2" Fill="Crimson" Margin="0,0,0,0"/>
+                <Rectangle Name="T12" Grid.Column="1" Grid.Row="2" Fill="Red" Margin="0,0,0,0"/>
+                <Rectangle Name="T22" Grid.Column="2" Grid.Row="2" Fill="Firebrick" Margin="0,0,0,0"/>
+            </Grid>
+            <Grid Name="MiddleLayer" Grid.Column="1" Margin="10,10,10,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Rectangle Name="M00" Grid.Column="0" Grid.Row="0" Fill="Aqua" Margin="0,0,0,0"/>
+                <Rectangle Name="M10" Grid.Column="1" Grid.Row="0" Fill="Blue" Margin="0,0,0,0"/>
+                <Rectangle Name="M20" Grid.Column="2" Grid.Row="0" Fill="BlueViolet" Margin="0,0,0,0"/>
+                <Rectangle Name="M01" Grid.Column="0" Grid.Row="1" Fill="Chartreuse" Margin="0,0,0,0"/>
+                <Rectangle Name="M11" Grid.Column="1" Grid.Row="1" Fill="Green" Margin="0,0,0,0"/>
+                <Rectangle Name="M21" Grid.Column="2" Grid.Row="1" Fill="SeaGreen" Margin="0,0,0,0"/>
+                <Rectangle Name="M02" Grid.Column="0" Grid.Row="2" Fill="Crimson" Margin="0,0,0,0"/>
+                <Rectangle Name="M12" Grid.Column="1" Grid.Row="2" Fill="Red" Margin="0,0,0,0"/>
+                <Rectangle Name="M22" Grid.Column="2" Grid.Row="2" Fill="Firebrick" Margin="0,0,0,0"/>
+            </Grid>
+            <Grid Name="BottomLayer" Grid.Column="2" Margin="10,10,10,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Rectangle Name="B00" Grid.Column="0" Grid.Row="0" Fill="Aqua" Margin="0,0,0,0"/>
+                <Rectangle Name="B10" Grid.Column="1" Grid.Row="0" Fill="Blue" Margin="0,0,0,0"/>
+                <Rectangle Name="B20" Grid.Column="2" Grid.Row="0" Fill="BlueViolet" Margin="0,0,0,0"/>
+                <Rectangle Name="B01" Grid.Column="0" Grid.Row="1" Fill="Chartreuse" Margin="0,0,0,0"/>
+                <Rectangle Name="B11" Grid.Column="1" Grid.Row="1" Fill="Green" Margin="0,0,0,0"/>
+                <Rectangle Name="B21" Grid.Column="2" Grid.Row="1" Fill="SeaGreen" Margin="0,0,0,0"/>
+                <Rectangle Name="B02" Grid.Column="0" Grid.Row="2" Fill="Crimson" Margin="0,0,0,0"/>
+                <Rectangle Name="B12" Grid.Column="1" Grid.Row="2" Fill="Red" Margin="0,0,0,0"/>
+                <Rectangle Name="B22" Grid.Column="2" Grid.Row="2" Fill="Firebrick" Margin="0,0,0,0"/>
+            </Grid>
         </Grid>
-        <Rectangle Grid.Row="0" Fill="Yellow" Margin="0,0,0,0" />
     </Grid>
 </Page>
