@@ -25,13 +25,42 @@
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            <Button Name="BackButton" Content="Back" Grid.Column="0" Grid.Row="0" Height="auto" Width="auto" />
-            <Button Name="ResetButton" Content="Reset" Grid.Column="0" Grid.Row="2" Height="auto" Width="auto" />
-
+            <Viewbox Stretch="Uniform" Grid.Column="0" Grid.Row="0" Height="auto" Width="auto">
+                <Button Name="BackButton" Content="Back" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Viewbox>
+            <Viewbox Stretch="Uniform" Grid.Column="0" Grid.Row="2" Height="auto" Width="auto">
+                <Button Name="ResetButton" Content="Reset" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Viewbox>
             <Image Name="GameName" Source="Assets/title.png" Grid.Column="1" Grid.Row="1" />
             
-            <TextBlock Name="BestScore" Text="Best: 0" Grid.Column="2" Grid.Row="0" Height="auto" Width="auto" />
-            <TextBlock Name="ActualScore" Text="Score: 0" Grid.Column="2" Grid.Row="2" Height="auto" Width="auto" />
+            
+            <Grid Grid.Column="2" Grid.Row="0" Margin="0,0,0,0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Viewbox Stretch="Uniform" Grid.Row="0" Height="auto" Width="auto">
+                    <TextBlock Name="BestScore" Text="Best:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Viewbox>
+                <Viewbox Stretch="Uniform" Grid.Row="1" Height="auto" Width="auto">
+                    <TextBlock Name="BestScoreNumber" Text="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Viewbox>
+            </Grid>
+
+            <Grid Grid.Column="2" Grid.Row="2" Margin="0,0,0,0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+                <Viewbox Stretch="Uniform" Grid.Row="0" Height="auto" Width="auto">
+                    <TextBlock Name="ActualScore" Text="Score:" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Viewbox>
+                <Viewbox Stretch="Uniform" Grid.Row="1" Height="auto" Width="auto">
+                    <TextBlock Name="ActualScoreNumber" Text="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Viewbox>
+            </Grid>
+            
+            
         </Grid>
         <Grid Grid.Row="1" Margin="0,0,0,0" >
             <Grid.ColumnDefinitions>
@@ -51,15 +80,46 @@
                     <ColumnDefinition Width="1*" />
                 </Grid.ColumnDefinitions>
 
-                <Rectangle Name="T00" Grid.Column="0" Grid.Row="0" Fill="Aqua" Margin="0,0,0,0"/>
-                <Rectangle Name="T10" Grid.Column="1" Grid.Row="0" Fill="Blue" Margin="0,0,0,0"/>
-                <Rectangle Name="T20" Grid.Column="2" Grid.Row="0" Fill="BlueViolet" Margin="0,0,0,0"/>
-                <Rectangle Name="T01" Grid.Column="0" Grid.Row="1" Fill="Chartreuse" Margin="0,0,0,0"/>
-                <Rectangle Name="T11" Grid.Column="1" Grid.Row="1" Fill="Green" Margin="0,0,0,0"/>
-                <Rectangle Name="T21" Grid.Column="2" Grid.Row="1" Fill="SeaGreen" Margin="0,0,0,0"/>
-                <Rectangle Name="T02" Grid.Column="0" Grid.Row="2" Fill="Crimson" Margin="0,0,0,0"/>
-                <Rectangle Name="T12" Grid.Column="1" Grid.Row="2" Fill="Red" Margin="0,0,0,0"/>
+                <Rectangle Name="T00C" Grid.Column="0" Grid.Row="0" Fill="Aqua" Margin="0,0,0,0"/>
+                <Viewbox Stretch="Uniform" Grid.Column="0" Grid.Row="0" Height="auto" Width="auto">
+                    <TextBlock Name="T00T" Text="" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Viewbox>
+                
+                <Rectangle Name="T10C" Grid.Column="1" Grid.Row="0" Fill="Blue" Margin="0,0,0,0"/>
+                <Viewbox Stretch="Uniform" Grid.Column="1" Grid.Row="0" Height="auto" Width="auto">
+                    <TextBlock Name="T10T" Text="2" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Viewbox>
+                
+                <Rectangle Name="T20C" Grid.Column="2" Grid.Row="0" Fill="BlueViolet" Margin="0,0,0,0"/>
+                <Viewbox Stretch="Uniform" Grid.Column="2" Grid.Row="0" Height="auto" Width="auto">
+                    <TextBlock Name="T20T" Text="4" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Viewbox>
+                
+                <Rectangle Name="T01C" Grid.Column="0" Grid.Row="1" Fill="Chartreuse" Margin="0,0,0,0"/>
+                <Viewbox Stretch="Uniform" Grid.Column="0" Grid.Row="1" Height="auto" Width="auto">
+                    <TextBlock Name="T01T" Text="8" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Viewbox>
+                <Rectangle Name="T11C" Grid.Column="1" Grid.Row="1" Fill="Green" Margin="0,0,0,0"/>
+                <Viewbox Stretch="Uniform" Grid.Column="1" Grid.Row="1" Height="auto" Width="auto">
+                    <TextBlock Name="T11T" Text="16" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Viewbox>
+                <Rectangle Name="T21C" Grid.Column="2" Grid.Row="1" Fill="SeaGreen" Margin="0,0,0,0"/>
+                <Viewbox Stretch="Uniform" Grid.Column="2" Grid.Row="1" Height="auto" Width="auto">
+                    <TextBlock Name="T21T" Text="32" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Viewbox>
+                <Rectangle Name="T02C" Grid.Column="0" Grid.Row="2" Fill="Crimson" Margin="0,0,0,0"/>
+                <Viewbox Stretch="Uniform" Grid.Column="0" Grid.Row="2" Height="auto" Width="auto">
+                    <TextBlock Name="T02T" Text="64" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Viewbox>
+                <Rectangle Name="T12C" Grid.Column="1" Grid.Row="2" Fill="Red" Margin="0,0,0,0"/>
+                <Viewbox Stretch="Uniform" Grid.Column="1" Grid.Row="2" Height="auto" Width="auto">
+                    <TextBlock Name="T12T" Text="128" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Viewbox>
+                
                 <Rectangle Name="T22" Grid.Column="2" Grid.Row="2" Fill="Firebrick" Margin="0,0,0,0"/>
+                <Viewbox Stretch="Uniform" Grid.Column="2" Grid.Row="2" Height="auto" Width="auto">
+                    <TextBlock Name="T22T" Text="256" TextAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </Viewbox>
             </Grid>
             <Grid Name="MiddleLayer" Grid.Column="1" Margin="10,10,10,10">
                 <Grid.RowDefinitions>
