@@ -54,7 +54,7 @@ namespace _2048_3d_game
 
             Frame rootFrame = Window.Current.Content as Frame;
 
-            // Do not repeat app initialization when the Window already has content,
+            // Do not repeat app initialization when the Window already has cellContent,
             // just ensure that the window is active
             if (rootFrame == null)
             {
@@ -102,7 +102,7 @@ namespace _2048_3d_game
         }
 
         /// <summary>
-        /// Restores the content transitions after the app has launched.
+        /// Restores the cellContent transitions after the app has launched.
         /// </summary>
         /// <param name="sender">The object where the handler is attached.</param>
         /// <param name="e">Details about the navigation event.</param>
@@ -124,7 +124,7 @@ namespace _2048_3d_game
         {
             var deferral = e.SuspendingOperation.GetDeferral();
 
-            // TODO: Save application state and stop any background activity
+            // TODO: Save application state and stop any cellBackground activity
             deferral.Complete();
         }
     }
