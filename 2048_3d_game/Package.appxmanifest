@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="1080732c-b16c-48c0-a809-9b512eb07632" Publisher="CN=developer" Version="0.1.0.0" />
+  <Identity Name="1080732c-b16c-48c0-a809-9b512eb07632" Publisher="CN=developer" Version="0.8.0.0" />
   <mp:PhoneIdentity PhoneProductId="1080732c-b16c-48c0-a809-9b512eb07632" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>2048_3d_game</DisplayName>
@@ -21,6 +21,7 @@
         </m3:DefaultTile>
         <m3:SplashScreen Image="Assets\SplashScreen.png" />
         <m3:InitialRotationPreference>
+          <m3:Rotation Preference="portrait" />
           <m3:Rotation Preference="landscape" />
         </m3:InitialRotationPreference>
       </m3:VisualElements>

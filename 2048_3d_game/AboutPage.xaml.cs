@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.System;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,18 +12,17 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using W = Windows.Phone.UI.Input;
-using Windows.UI.Input;
 
-using GameController = _2048_3d_game.Controller;
+// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
 namespace _2048_3d_game
 {
-
-    public sealed partial class MainPage : Page
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class AboutPage : Page
     {
-
-        public MainPage()
+        public AboutPage()
         {
             this.InitializeComponent();
         }
@@ -40,25 +37,9 @@ namespace _2048_3d_game
             Windows.Graphics.Display.DisplayInformation.AutoRotationPreferences =
                 Windows.Graphics.Display.DisplayOrientations.Portrait;
         }
-
-        private void NewGame_Click(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(NewGamePage));
-        }
-
-        private void LoadGame_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(LoadGamePage));
-        }
-
-        private void HighScores_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(HighScoresPage));
-        }
-
-        private void About_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(AboutPage));
+            Frame.Navigate(typeof(MainPage));
         }
     }
 }

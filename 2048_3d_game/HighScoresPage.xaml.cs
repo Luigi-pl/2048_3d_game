@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.System;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,20 +12,20 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using W = Windows.Phone.UI.Input;
-using Windows.UI.Input;
-
-using GameController = _2048_3d_game.Controller;
+using _2048_3d_game.Model;
+// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
 namespace _2048_3d_game
 {
-
-    public sealed partial class MainPage : Page
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class HighScoresPage : Page
     {
-
-        public MainPage()
+        public HighScoresPage()
         {
             this.InitializeComponent();
+            ChangeComponents();
         }
 
         /// <summary>
@@ -41,24 +39,25 @@ namespace _2048_3d_game
                 Windows.Graphics.Display.DisplayOrientations.Portrait;
         }
 
-        private void NewGame_Click(object sender, RoutedEventArgs e)
+        private void ChangeComponents()
         {
-            Frame.Navigate(typeof(NewGamePage));
+            List<int> highScores = GameHighScoresModel.GetHighScores();
+            highScores.Sort();
+
+            ChangeTextBlock(this.HighScore_1, highScores[4].ToString());
+            ChangeTextBlock(this.HighScore_2, highScores[3].ToString());
+            ChangeTextBlock(this.HighScore_3, highScores[2].ToString());
+            ChangeTextBlock(this.HighScore_4, highScores[1].ToString());
+            ChangeTextBlock(this.HighScore_5, highScores[0].ToString());
         }
 
-        private void LoadGame_Click(object sender, RoutedEventArgs e)
+        private void Back_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(LoadGamePage));
+            Frame.Navigate(typeof(MainPage));
         }
-
-        private void HighScores_Click(object sender, RoutedEventArgs e)
+        private void ChangeTextBlock(TextBlock block, String text)
         {
-            Frame.Navigate(typeof(HighScoresPage));
-        }
-
-        private void About_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(AboutPage));
+            block.Text = text;
         }
     }
 }

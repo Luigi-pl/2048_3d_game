@@ -1,0 +1,223 @@
+﻿<Page
+    x:Class="_2048_3d_game.NewGamePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:_2048_3d_game"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Margin="12,12,12,12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="1*" />
+
+            <RowDefinition Height="11*" />
+
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <Image Name="GameName" Source="Assets/title.png" Grid.Row="0" />
+
+        <ScrollViewer HorizontalAlignment="Left" VerticalAlignment="Top"
+                      Grid.Row="2"
+                      Margin="0,0,0,0"  VerticalScrollMode="Enabled" 
+                      Height="393" Width="376">
+            <ItemsControl Background="{x:Null}">
+                <Grid Width="auto" Height="100px">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Viewbox Stretch="Uniform" 
+                             Grid.Row="0" Grid.Column="0"
+                         Height="auto" Width="auto">
+                        <TextBlock Name="BoardSize" Text="Board size:" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Viewbox>
+
+                    <Viewbox Stretch="Uniform" 
+                             Grid.Row="0" Grid.Column="1"
+                             Grid.ColumnSpan="2"
+                         Height="auto" Width="auto">
+                        <TextBlock Name="BoardSizeNumber" Text="0" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Viewbox>
+
+                    <Viewbox Stretch="Uniform" 
+                             Grid.Row="1" Grid.Column="0"
+                             Grid.ColumnSpan="2"
+                             Height="auto" Width="auto">
+                        <Slider Name="BoardSizeSlider" Margin="0,0,0,0" Background="Red" 
+                                Width="300" 
+                                LargeChange="1" ValueChanged="BoardSizeSlider_ValueChanged" />
+                    </Viewbox>
+                </Grid>
+
+                <Viewbox Stretch="Uniform" 
+                             Grid.Row="0" Grid.Column="0"
+                         Height="5px" Width="auto">
+                    <Rectangle Fill="Red" Height="10" Width="1200"/>
+                </Viewbox>
+
+                <Grid Width="auto" Height="100px">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Viewbox Stretch="Uniform" 
+                             Grid.Row="0" Grid.Column="0"
+                         Height="auto" Width="auto">
+                        <TextBlock Name="Layers" Text="Number of layers:" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Viewbox>
+
+                    <Viewbox Stretch="Uniform" 
+                             Grid.Row="0" Grid.Column="1"
+                             Grid.ColumnSpan="2"
+                         Height="auto" Width="auto">
+                        <TextBlock Name="LayersNumber" Text="0" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Viewbox>
+                    <Viewbox Stretch="Uniform" 
+                             Grid.Row="1" Grid.Column="0"
+                             Grid.ColumnSpan="2"
+                             Height="auto" Width="auto">
+                        <Slider Name="LayersSlider" Margin="0,0,0,0" Background="Red" 
+                                Width="300" 
+                                LargeChange="1" ValueChanged="LayersSlider_ValueChanged" />
+                    </Viewbox>
+                </Grid>
+
+                <Viewbox Stretch="Uniform" 
+                             Grid.Row="0" Grid.Column="0"
+                         Height="5px" Width="auto">
+                    <Rectangle Fill="Red" Height="10" Width="1200"/>
+                </Viewbox>
+
+                <Grid Width="auto" Height="100px">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Viewbox Stretch="Uniform" 
+                             Grid.Row="0" Grid.Column="0"
+                         Height="auto" Width="auto">
+                        <TextBlock Name="NewField" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center">
+                        	<Run Text="Number of fields added after move:"/>
+                        </TextBlock>
+                    </Viewbox>
+
+                    <Viewbox Stretch="Uniform" 
+                             Grid.Row="0" Grid.Column="1"
+                             Grid.ColumnSpan="2"
+                         Height="auto" Width="auto">
+                        <TextBlock Name="NewFieldNumber" Text="0" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Viewbox>
+                    <Viewbox Stretch="Uniform" 
+                             Grid.Row="1" Grid.Column="0"
+                             Grid.ColumnSpan="2"
+                             Height="auto" Width="auto">
+                        <Slider Name="NewFieldSlider" Margin="0,0,0,0" Background="Red" 
+                                Width="300" 
+                                LargeChange="1" ValueChanged="NewFieldSlider_ValueChanged" />
+                    </Viewbox>
+                </Grid>
+
+                <Viewbox Stretch="Uniform" 
+                             Grid.Row="0" Grid.Column="0"
+                         Height="5px" Width="auto">
+                    <Rectangle Fill="Red" Height="10" Width="1200"/>
+                </Viewbox>
+
+                <Grid Width="auto" Height="100px">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Viewbox Stretch="Uniform" 
+                             Grid.Row="0" Grid.Column="0"
+                         Height="auto" Width="auto">
+                        <TextBlock Name="TargetValueField" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center">
+                        	<Run Text="Target field value needed to win game:"/>
+                        </TextBlock>
+                    </Viewbox>
+
+                    <Viewbox Stretch="Uniform" 
+                             Grid.Row="0" Grid.Column="1"
+                             Grid.ColumnSpan="2"
+                         Height="auto" Width="auto">
+                        <TextBlock Name="TargetValueFieldNumber" Text="0" 
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Viewbox>
+                    <Viewbox Stretch="Uniform" 
+                             Grid.Row="1" Grid.Column="0"
+                             Grid.ColumnSpan="2"
+                             Height="auto" Width="auto">
+                        <Slider Name="TargetValueFieldSlider" Margin="0,0,0,0" Background="Red" 
+                                Width="300" 
+                                LargeChange="1" ValueChanged="TargetValueFieldSlider_ValueChanged" />
+                    </Viewbox>
+                </Grid>
+
+            </ItemsControl>
+        </ScrollViewer>
+
+
+
+        <Grid Margin="0,0,0,0"
+            Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center"
+                 Margin="0,0,0,0" 
+                 Grid.Column="0" 
+                 Stretch="Uniform"
+                 Height="auto" Width="auto">
+                <Button x:Name="Back" Content="Back" Margin="0,0,0,0" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Width="120px" Click="Back_Click" />
+            </Viewbox>
+
+            <Viewbox HorizontalAlignment="Center" VerticalAlignment="Center"
+                 Margin="0,0,0,0" 
+                 Grid.Column="1" 
+                 Stretch="Uniform"
+                 Height="auto" Width="auto">
+                <Button x:Name="Start" Content="Start game" Margin="0,0,0,0" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Width="120px" Click="Start_Click" />
+            </Viewbox>
+
+        </Grid>
+    </Grid>
+</Page>

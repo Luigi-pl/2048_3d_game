@@ -15,9 +15,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using _2048_3d_game.Model;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
-
 namespace _2048_3d_game
 {
     /// <summary>
@@ -62,11 +62,20 @@ namespace _2048_3d_game
                 rootFrame = new Frame();
 
                 // TODO: change this value to a cache size that is appropriate for your application
-                rootFrame.CacheSize = 1;
+                rootFrame.CacheSize = 4;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    // TODO: Load state from previously suspended application
+                    String loadedGame = DataLoader.LoadStringFromLocalSettings(DataLoader.saveGame_Termineted);
+                    DataLoader.SaveStringToLocalSettings(DataLoader.saveGame_Termineted, "");
+                    if(loadedGame.Count() > 0)
+                    {
+                        rootFrame.Navigate(typeof(GamePage), loadedGame);
+                    }
+                }
+                else
+                {
+                    DataLoader.SaveStringToLocalSettings(DataLoader.saveGame_Termineted, "");
                 }
 
                 // Place the frame in the current Window
@@ -124,7 +133,17 @@ namespace _2048_3d_game
         {
             var deferral = e.SuspendingOperation.GetDeferral();
 
-            // TODO: Save application state and stop any cellBackground activity
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            if (rootFrame.SourcePageType.Equals(typeof(GamePage)))
+            {
+               ((GamePage)(((Windows.UI.Xaml.Controls.ContentControl)(rootFrame)).Content)).SaveGame_Suspended();
+            }
+            else if (rootFrame.SourcePageType.Equals(typeof(SaveGamePage)))
+            {
+                ((SaveGamePage)(((Windows.UI.Xaml.Controls.ContentControl)(rootFrame)).Content)).SaveGame_Suspended();
+            }
+
             deferral.Complete();
         }
     }
