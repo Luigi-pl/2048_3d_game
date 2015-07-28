@@ -13,12 +13,11 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using _2048_3d_game.Model;
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
 namespace _2048_3d_game
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// High score page.
     /// </summary>
     public sealed partial class HighScoresPage : Page
     {

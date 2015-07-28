@@ -18,7 +18,7 @@ using _2048_3d_game.Exceptions;
 namespace _2048_3d_game
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Load game page.
     /// </summary>
     public sealed partial class LoadGamePage : Page
     {

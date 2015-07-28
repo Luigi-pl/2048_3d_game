@@ -1,5 +1,8 @@
 ﻿namespace _2048_3d_game.Model
 {
+    /// <summary>
+    /// Class is used to store data about signle field
+    /// </summary>
     class FieldPosition
     {
         public int x { get; set; }
@@ -8,30 +11,36 @@
 
         public FieldPosition()
         {
-            Reset();
+            SetFieldPosition(0, 0, 0);
         }
         public FieldPosition(int x, int y, int z)
         {
-            Reset(x, y, z);
+            SetFieldPosition(x, y, z);
         }
         public FieldPosition(FieldPosition position)
         {
-            Reset(position.x, position.y, position.z);
+            SetFieldPosition(position.x, position.y, position.z);
         }
 
-        public void Reset()
-        {
-            Reset(0, 0, 0);
-        }
-        public void Reset(int x, int y, int z)
+        /// <summary>
+        /// Method sets data about field position
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="z"></param>
+        public void SetFieldPosition(int x, int y, int z)
         {
             this.x = x;
             this.y = y;
             this.z = z;
         }
-        public void Reset(FieldPosition position)
+        /// <summary>
+        /// Method sets data about field position
+        /// </summary>
+        /// <param name="position"></param>
+        public void SetFieldPosition(FieldPosition position)
         {
-            Reset(position.x, position.y, position.z);
+            SetFieldPosition(position.x, position.y, position.z);
         }
 
         public bool Equals(FieldPosition position)

@@ -6,6 +6,9 @@ using View = _2048_3d_game.View;
 using _2048_3d_game.Exceptions;
 namespace _2048_3d_game.Controller
 {
+    /// <summary>
+    /// Class controlls gameplay
+    /// </summary>
     class GameController
     {
         Model.GameScoreModel gameStatistic;
@@ -14,6 +17,7 @@ namespace _2048_3d_game.Controller
         Model.GameBoardModel gameModel;
         View.GameBoardView gameModelView;
         Windows.UI.Xaml.Controls.Grid mainBoardGrid;
+
 
         int boardSize;
         int numberOfLayers;
@@ -42,12 +46,21 @@ namespace _2048_3d_game.Controller
             StartGame();
         }
 
+        /// <summary>
+        /// Method starts new game
+        /// </summary>
         private void StartGame()
         {
-            Model.GameSettings.Instance.continuousGame = false;
-            Update();
+            Model.GameSettings.GetInstance.ifTheGameIsOver = false;
+            
+            SetValueOfRandomField();
+            SetValueOfRandomField();
+            UpdateView();
         }
 
+        /// <summary>
+        /// Method restarts game
+        /// </summary>
         public void ResetGame()
         {
 
@@ -62,11 +75,15 @@ namespace _2048_3d_game.Controller
             StartGame();
         }
 
+        /// <summary>
+        /// Method converts string (saved gamed) to game board, game settings and game score
+        /// </summary>
+        /// <param name="savedGame"></param>
         public void ImportGame(String savedGame)
         {
             string []list = savedGame.Split('.');
 
-            Model.GameSettings.Instance.ImportSettingsFromString(list[0], list[1], list[2], list[3], list[4]);
+            Model.GameSettings.GetInstance.ImportSettingsFromString(list[0], list[1], list[2], list[3], list[4]);
             LoadBoardSize();
 
             gameModel = new Model.GameBoardModel(this.boardSize, this.numberOfLayers);
@@ -85,21 +102,32 @@ namespace _2048_3d_game.Controller
             gameStatistic.AddScoreToHighScores();
         }
 
+        /// <summary>
+        /// Method converts game board, game settings and game score to string
+        /// </summary>
+        /// <param name="savedGame"></param>
         public String ExportGame()
         {
-            String result = Model.GameSettings.Instance.ExportSettingsToString();
+            String result = Model.GameSettings.GetInstance.ExportSettingsToString();
             result += gameModel.ExportGameBoardModelToString();
             result += gameStatistic.ExportScoreModelToString();
 
             return result;
         }
-        public void UndoMovement()
+        /// <summary>
+        /// Method withdraws last movement of player
+        /// </summary>
+        public void WithdrawLastMovement()
         {
             if (beforeMove.Length > 0)
             {
                 ImportGame(beforeMove);
             }
         }
+
+        /// <summary>
+        /// Method is called when there isn't any empty fields
+        /// </summary>
         private async void EndGame_NoEmptyFields()
         {
             var dialog = new Windows.UI.Popups.MessageDialog("Game over!");
@@ -112,8 +140,10 @@ namespace _2048_3d_game.Controller
                 ResetGame();
             }
         }
-
-        private async void EndGame_TargetFieldValueReached()
+        /// <summary>
+        /// Method is called when player reaches target value of the field needed to win
+        /// </summary>
+        private async void EndGame_TargetValueOfTheFieldReached()
         {
             var dialog = new Windows.UI.Popups.MessageDialog("You reached target field value.\nWhat do you want to do?");
             dialog.Commands.Add(new UICommand { Label = "Restart", Id = 0 });
@@ -127,40 +157,41 @@ namespace _2048_3d_game.Controller
             }
             else if ((int)res.Id == 1)
             {
-                Model.GameSettings.Instance.continuousGame = true;
+                Model.GameSettings.GetInstance.ifTheGameIsOver = true;
             }
         }
 
+        /// <summary>
+        /// Method loads from settings game board size
+        /// </summary>
         private void LoadBoardSize()
         {
-            Model.GameSettings settings = Model.GameSettings.Instance;
+            Model.GameSettings settings = Model.GameSettings.GetInstance;
 
             this.boardSize = settings.boardSize;
             this.numberOfLayers = settings.numberOfLayers;
         }
 
-        private void Update()
-        {
-            UpdateModel();
-            UpdateModel();
-            UpdateView();
-        }
-
-        private void Update(int numberOfMovements)
+        /// <summary>
+        /// Method checks if the game is over (no empty fields, target value of the field reached)
+        /// 
+        /// </summary>
+        /// <param name="numberOfMovements"></param>
+        private void AfterMoveCheck(int numberOfMovements)
         {
             int numberOfFreeFields = Model.EmptyFieldsPosition.Instance.NumberOfEmptyFields();
 
-            if (!Model.GameSettings.Instance.continuousGame && 
-                gameModel.IsTargetFieldValueReached(Model.GameSettings.Instance.targetFieldValue))
+            if (!Model.GameSettings.GetInstance.ifTheGameIsOver && 
+                gameModel.IsTargetFieldValueReached(Model.GameSettings.GetInstance.targetValueOfTheField))
             {
-                EndGame_TargetFieldValueReached();
+                EndGame_TargetValueOfTheFieldReached();
             }
 
             if (numberOfMovements > 0 && numberOfFreeFields > 0)
             {
-                for (int numberOfFieldsToAdd = Model.GameSettings.Instance.numberOfFieldsToAdd; numberOfFieldsToAdd > 0; numberOfFieldsToAdd--)
+                for (int numberOfFieldsToAdd = Model.GameSettings.GetInstance.numberOfFieldsToAdd; numberOfFieldsToAdd > 0; numberOfFieldsToAdd--)
                 {
-                    UpdateModel();
+                    SetValueOfRandomField();
                 }
             }
             else if (numberOfMovements == 0 && numberOfFreeFields > 0)
@@ -178,49 +209,55 @@ namespace _2048_3d_game.Controller
             UpdateView();
         }
 
-        private void UpdateModel()
+        /// <summary>
+        /// Method sets the value of the random field
+        /// </summary>
+        private void SetValueOfRandomField()
         {
             try
             {
                 Model.FieldPosition position = Model.EmptyFieldPositionFactory.GetRandomEmptyFieldPosition();
 
-                gameModel.UpdateFieldToRandomValue(position, Model.FieldValueFactory.GetRandomFieldValue());
+                gameModel.UpdateFieldToRandomValue(position, Model.FieldValue.first);
             }
             catch(NoFreeFieldException)
             {
 
             }
         }
+        /// <summary>
+        /// Method updates View to show changes after player move
+        /// </summary>
         private void UpdateView()
         {
             gameModelView.UpdateGameBoard(gameModel);
             gameStatisticView.UpdateStatistic(gameStatistic);
         }
 
-        internal void GestureInterpreter(GestureController gestureController)
+        internal void GestureInterpreter(GestureInterpreter gestureController)
         {
             beforeMove = ExportGame();
-            if (gestureController.IsMovedTop())
+            if (gestureController.IsGestureDirectionTop())
             {
                 MoveTop();
             }
-            else if (gestureController.IsMovedBottom())
+            else if (gestureController.IsGestureDirectionBottom())
             {
                 MoveBottom();
             }
-            else if (gestureController.IsMovedLeft())
+            else if (gestureController.IsGestureDirectionLeft())
             {
                 MoveLeft();
             }
-            else if (gestureController.IsMovedRight())
+            else if (gestureController.IsGestureDirectionRight())
             {
                 MoveRight();
             }
-            else if (gestureController.IsMovedUp())
+            else if (gestureController.IsGestureDirectionUp())
             {
                 MoveUp();
             }
-            else if (gestureController.IsMovedDown())
+            else if (gestureController.IsGestureDirectionDown())
             {
                 MoveDown();
             }
@@ -247,7 +284,7 @@ namespace _2048_3d_game.Controller
                     numberOfMovements += ZAxisMovement(pos);
                 }
             }
-            Update(numberOfMovements);
+            AfterMoveCheck(numberOfMovements);
         }
         private void MoveBottom()
         {
@@ -270,7 +307,7 @@ namespace _2048_3d_game.Controller
                     numberOfMovements += ZAxisMovement(pos);
                 }
             }
-            Update(numberOfMovements);
+            AfterMoveCheck(numberOfMovements);
         }
         private void MoveLeft()
         {
@@ -289,7 +326,7 @@ namespace _2048_3d_game.Controller
                     numberOfMovements += XAxisMovement(pos);
                 }
             }
-            Update(numberOfMovements);
+            AfterMoveCheck(numberOfMovements);
         }
         private void MoveRight()
         {
@@ -308,7 +345,7 @@ namespace _2048_3d_game.Controller
                     numberOfMovements += XAxisMovement(pos);
                 }
             }
-            Update(numberOfMovements);
+            AfterMoveCheck(numberOfMovements);
         }
         private void MoveUp()
         {
@@ -327,7 +364,7 @@ namespace _2048_3d_game.Controller
                     numberOfMovements += YAxisMovement(pos);
                 }
             }
-            Update(numberOfMovements);
+            AfterMoveCheck(numberOfMovements);
         }
         private void MoveDown()
         {
@@ -346,23 +383,23 @@ namespace _2048_3d_game.Controller
                     numberOfMovements += YAxisMovement(pos);
                 }
             }
-            Update(numberOfMovements);
+            AfterMoveCheck(numberOfMovements);
         }
 
         private int YAxisMovement(Model.FieldPosition position)
         {
             int numberOfMovements = 0;
             Model.FieldPosition newPosition = new Model.FieldPosition();
-            newPosition.Reset(position);
+            newPosition.SetFieldPosition(position);
 
             numberOfMovements += MoveFields(position, newPosition, "y");
-            newPosition.Reset(position);
+            newPosition.SetFieldPosition(position);
 
             numberOfMovements += AddFields(position, newPosition, "y");
-            newPosition.Reset(position);
+            newPosition.SetFieldPosition(position);
 
             numberOfMovements += MoveFields(position, newPosition, "y");
-            newPosition.Reset(position);
+            newPosition.SetFieldPosition(position);
 
             return numberOfMovements;
         }
@@ -370,16 +407,16 @@ namespace _2048_3d_game.Controller
         {
             int numberOfMovements = 0;
             Model.FieldPosition newPosition = new Model.FieldPosition();
-            newPosition.Reset(position);
+            newPosition.SetFieldPosition(position);
 
             numberOfMovements += MoveFields(position, newPosition, "x");
-            newPosition.Reset(position);
+            newPosition.SetFieldPosition(position);
 
             numberOfMovements += AddFields(position, newPosition, "x");
-            newPosition.Reset(position);
+            newPosition.SetFieldPosition(position);
 
             numberOfMovements += MoveFields(position, newPosition, "x");
-            newPosition.Reset(position);
+            newPosition.SetFieldPosition(position);
 
             return numberOfMovements;
         }
@@ -387,16 +424,16 @@ namespace _2048_3d_game.Controller
         {
             int numberOfMovements = 0;
             Model.FieldPosition newPosition = new Model.FieldPosition();
-            newPosition.Reset(position);
+            newPosition.SetFieldPosition(position);
 
             numberOfMovements += MoveFields(position, newPosition, "z");
-            newPosition.Reset(position);
+            newPosition.SetFieldPosition(position);
 
             numberOfMovements += AddFields(position, newPosition, "z");
-            newPosition.Reset(position);
+            newPosition.SetFieldPosition(position);
 
             numberOfMovements += MoveFields(position, newPosition, "z");
-            newPosition.Reset(position);
+            newPosition.SetFieldPosition(position);
 
             return numberOfMovements;
         }

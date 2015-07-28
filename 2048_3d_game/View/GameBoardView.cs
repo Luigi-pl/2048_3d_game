@@ -8,16 +8,22 @@ namespace _2048_3d_game.View
         private LayerView[] layers;
         private UIX.Controls.Grid gameBoard;
         private int numberOfLayers;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="boardModel">Board model</param>
         public GameBoardView(GameModel.GameBoardModel boardModel)
         {
             numberOfLayers = boardModel.numberOfLayers;
 
-            CreateGameBoard();
-
-            PrepareGameBoard();
-            PrepareLayers(boardModel);
+            InitializeGameBoard();
+            CreateLayers(boardModel);
             UpdateGameBoard(boardModel);
         }
+        /// <summary>
+        /// Method is used to insert game board view to main grid.
+        /// </summary>
         public void InsertGameBoardIntoMainGrid(ref UIX.Controls.Grid mainGrid, int x, int y)
         {
             if (mainGrid.Children.Count == 2)
@@ -29,6 +35,10 @@ namespace _2048_3d_game.View
 
             mainGrid.Children.Add(gameBoard);
         }
+        /// <summary>
+        /// Method updates all layers based on given model
+        /// </summary>
+        /// <param name="boardModel"></param>
         public void UpdateGameBoard(GameModel.GameBoardModel boardModel)
         {
             for (int z = 0; z < numberOfLayers; z++)
@@ -37,25 +47,35 @@ namespace _2048_3d_game.View
             }
         }
         /////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Method updates field value at specified layer
+        /// </summary>
+        /// <param name="layer">Array with fields values</param>
+        /// <param name="z">Layer number</param>
         private void UpdateLayer(GameModel.FieldValue[,] layer, int z)
         {
             layers[z].UpdateLayer(layer);
         }
         /////////////////////////////////////////////////////////////////////////////
-        private void CreateGameBoard()
+        /// <summary>
+        /// Method initializes and sets game board appearance
+        /// </summary>
+        private void InitializeGameBoard()
         {
             gameBoard = new Grid();
             layers = new LayerView[numberOfLayers];
-        }
-        private void PrepareGameBoard()
-        {
+
             gameBoard.Margin = new UIX.Thickness(0);
             for (int i = 0; i < numberOfLayers; i++)
             {
                 gameBoard.ColumnDefinitions.Add(new ColumnDefinition());
             }
         }
-        private void PrepareLayers(GameModel.GameBoardModel boardModel)
+        /// <summary>
+        /// Method creates layers based on given model
+        /// </summary>
+        /// <param name="model">Board model</param>
+        private void CreateLayers(GameModel.GameBoardModel boardModel)
         {
             for (int z = 0; z < numberOfLayers; z++)
             {

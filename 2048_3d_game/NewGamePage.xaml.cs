@@ -18,7 +18,7 @@ using Controller = _2048_3d_game.Controller;
 namespace _2048_3d_game
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// New game page.
     /// </summary>
     public sealed partial class NewGamePage : Page
     {
@@ -45,18 +45,17 @@ namespace _2048_3d_game
 
         private void LoadBoardSizeSettings()
         {
-            Model.GameSettings settings = Model.GameSettings.Instance;
+            Model.GameSettings settings = Model.GameSettings.GetInstance;
 
             this.BoardSizeSlider.Value = settings.boardSize;
             this.BoardSizeSlider.Minimum = Model.GameSettings.minBoardSize;
             this.BoardSizeSlider.Maximum = Model.GameSettings.maxBoardSize;
             
-
             this.BoardSizeNumber.Text = settings.boardSize.ToString();
         }
         private void LoadLayerNumberSettings()
         {
-            Model.GameSettings settings = Model.GameSettings.Instance;
+            Model.GameSettings settings = Model.GameSettings.GetInstance;
 
             this.LayersSlider.Value = settings.numberOfLayers;
             this.LayersSlider.Minimum = Model.GameSettings.minNumberofLayers;
@@ -66,24 +65,24 @@ namespace _2048_3d_game
         }
         private void LoadNewFieldNumberSettings()
         {
-            Model.GameSettings settings = Model.GameSettings.Instance;
+            Model.GameSettings settings = Model.GameSettings.GetInstance;
             this.NewFieldSlider.Minimum = Model.GameSettings.minNumberOfFieldsToAdd;
             SetNewFieldSliderMaximum();
         }
         private void LoadTargetValueField()
         {
-            Model.GameSettings settings = Model.GameSettings.Instance;
+            Model.GameSettings settings = Model.GameSettings.GetInstance;
 
-            this.TargetValueFieldSlider.Value = settings.GetTargetFieldValue();
-            this.TargetValueFieldSlider.Minimum = settings.GetMinTargetFieldValue();
-            this.TargetValueFieldSlider.Maximum = settings.GetMaxTargetFieldValue();
+            this.TargetValueFieldSlider.Value = settings.GetTargetValueOfTheField();
+            this.TargetValueFieldSlider.Minimum = settings.GetMinTargetValueOfTheField();
+            this.TargetValueFieldSlider.Maximum = settings.GetMaxTargetValueOfTheField();
 
-            this.TargetValueFieldNumber.Text = settings.GetTargetFieldValueToString();
+            this.TargetValueFieldNumber.Text = settings.GetTargetValueOfTheFieldString();
         }
 
         private void SetNewFieldSliderMaximum()
         {
-            Model.GameSettings settings = Model.GameSettings.Instance;
+            Model.GameSettings settings = Model.GameSettings.GetInstance;
 
             int maximum = settings.numberOfLayers;
             if (settings.boardSize > ((Model.GameSettings.minBoardSize + Model.GameSettings.maxBoardSize) / 2))
@@ -107,7 +106,7 @@ namespace _2048_3d_game
 
         private void BoardSizeSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            Model.GameSettings settings = Model.GameSettings.Instance;
+            Model.GameSettings settings = Model.GameSettings.GetInstance;
             settings.boardSize = (int)e.NewValue;
             this.BoardSizeNumber.Text = settings.boardSize.ToString();
 
@@ -116,7 +115,7 @@ namespace _2048_3d_game
 
         private void LayersSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            Model.GameSettings settings = Model.GameSettings.Instance;
+            Model.GameSettings settings = Model.GameSettings.GetInstance;
             settings.numberOfLayers = (int)e.NewValue;
             this.LayersNumber.Text = settings.numberOfLayers.ToString();
 
@@ -125,16 +124,16 @@ namespace _2048_3d_game
 
         private void NewFieldSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            Model.GameSettings settings = Model.GameSettings.Instance;
+            Model.GameSettings settings = Model.GameSettings.GetInstance;
             settings.numberOfFieldsToAdd = (int)e.NewValue;
             this.NewFieldNumber.Text = settings.numberOfFieldsToAdd.ToString();
         }
 
         private void TargetValueFieldSlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
-            Model.GameSettings settings = Model.GameSettings.Instance;
-            settings.SetTargetFieldValue((int)e.NewValue);
-            this.TargetValueFieldNumber.Text = settings.GetTargetFieldValueToString();
+            Model.GameSettings settings = Model.GameSettings.GetInstance;
+            settings.SetTargetValueOfTheField((int)e.NewValue);
+            this.TargetValueFieldNumber.Text = settings.GetTargetValueOfTheFieldString();
         }
     }
 }

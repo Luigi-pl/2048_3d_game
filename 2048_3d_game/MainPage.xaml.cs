@@ -21,7 +21,9 @@ using GameController = _2048_3d_game.Controller;
 
 namespace _2048_3d_game
 {
-
+    /// <summary>
+    /// Main page/Start page
+    /// </summary>
     public sealed partial class MainPage : Page
     {
 

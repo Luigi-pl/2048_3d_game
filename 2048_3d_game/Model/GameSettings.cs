@@ -1,6 +1,9 @@
 ﻿using System;
 namespace _2048_3d_game.Model
 {
+    /// <summary>
+    /// Class is used to store game settings.
+    /// </summary>
     class GameSettings
     {
         private static GameSettings instance;
@@ -18,17 +21,18 @@ namespace _2048_3d_game.Model
         public const int minNumberOfFieldsToAdd = 1;
         public const int maxNumberOfFieldsToAdd = 4;
         //////////////////////////////////////////////////
-        public FieldValue targetFieldValue = FieldValue.eleventh;
+        public FieldValue targetValueOfTheField = FieldValue.eleventh;
 
-        public const FieldValue minTargetFieldValue = FieldValue.seventh;
-        public const FieldValue maxTargetFieldValue = FieldValue.fifteenth;
+        public const FieldValue minTargetValueOfTheField = FieldValue.seventh;
+        public const FieldValue maxTargetValueOfTheField = FieldValue.fifteenth;
         //////////////////////////////////////////////////
-        public bool continuousGame = false;
+        public bool ifTheGameIsOver = false;
 
 
         private GameSettings() { }
 
-        public static GameSettings Instance
+
+        public static GameSettings GetInstance
         {
             get
             {
@@ -40,6 +44,10 @@ namespace _2048_3d_game.Model
             }
         }
 
+        /// <summary>
+        /// Method converts game settings to string.
+        /// </summary>
+        /// <returns>string</returns>
         public String ExportSettingsToString()
         {
             String result = "";
@@ -47,9 +55,9 @@ namespace _2048_3d_game.Model
             result += TranslateData.TrasnlateNumberToChar(boardSize) + ".";
             result += TranslateData.TrasnlateNumberToChar(numberOfLayers) + ".";
             result += TranslateData.TrasnlateNumberToChar(numberOfFieldsToAdd) + ".";
-            result += TranslateData.TrasnlateNumberToChar((int)Math.Log((int)targetFieldValue, 2)) + ".";
+            result += TranslateData.TrasnlateNumberToChar((int)Math.Log((int)targetValueOfTheField, 2)) + ".";
 
-            if(continuousGame == false)
+            if(ifTheGameIsOver == false)
             {
                 result += TranslateData.TrasnlateNumberToChar(0) + ".";
             }
@@ -59,6 +67,15 @@ namespace _2048_3d_game.Model
             }
             return result;
         }
+
+        /// <summary>
+        /// Method converts splitted string to game settings
+        /// </summary>
+        /// <param name="boardSize"></param>
+        /// <param name="numberOfLayers"></param>
+        /// <param name="numberOfFieldsToAdd"></param>
+        /// <param name="targetFieldValue"></param>
+        /// <param name="continuousGame"></param>
         public void ImportSettingsFromString(string boardSize, string numberOfLayers,
             string numberOfFieldsToAdd,
             string targetFieldValue,
@@ -67,17 +84,23 @@ namespace _2048_3d_game.Model
             this.boardSize = TranslateData.TranslateCharToNumber(boardSize[0]);
             this.numberOfLayers = TranslateData.TranslateCharToNumber(numberOfLayers[0]);
             this.numberOfFieldsToAdd = TranslateData.TranslateCharToNumber(numberOfFieldsToAdd[0]);
-            this.targetFieldValue = (FieldValue) Math.Pow(2, TranslateData.TranslateCharToNumber(targetFieldValue[0]));
+            this.targetValueOfTheField = (FieldValue) Math.Pow(2, TranslateData.TranslateCharToNumber(targetFieldValue[0]));
             if (TranslateData.TranslateCharToNumber(continuousGame[0]) == 0)
             {
-                this.continuousGame = false;
+                this.ifTheGameIsOver = false;
             }
             else
             {
-                this.continuousGame = true;
+                this.ifTheGameIsOver = true;
             }
         }
 
+        /// <summary>
+        /// Method sets game settings
+        /// </summary>
+        /// <param name="boardSize">Size of single layer</param>
+        /// <param name="numberOfLayers">the number of layers</param>
+        /// <param name="numberOfFieldsToAdd">number of fields to be added</param>
         public void SetGameSettings(int boardSize, int numberOfLayers, int numberOfFieldsToAdd)
         {
             if (minBoardSize <= boardSize && boardSize <= maxBoardSize)
@@ -93,6 +116,7 @@ namespace _2048_3d_game.Model
                 this.boardSize = maxBoardSize;
             }
 
+
             if (minNumberofLayers <= numberOfLayers && numberOfLayers <= maxNumberofLayers)
             {
                 this.numberOfLayers = numberOfLayers;
@@ -105,6 +129,7 @@ namespace _2048_3d_game.Model
             {
                 this.numberOfLayers = maxNumberofLayers;
             }
+
 
             if (minNumberOfFieldsToAdd <= numberOfFieldsToAdd && numberOfFieldsToAdd <= maxNumberOfFieldsToAdd)
             {
@@ -120,38 +145,57 @@ namespace _2048_3d_game.Model
             }
 
         }
-
-        public void SetTargetFieldValue(int value)
+        /// <summary>
+        /// Method sets a target value of the field to win the game
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetTargetValueOfTheField(int value)
         {
             FieldValue fieldValue = (FieldValue)(int)Math.Pow(2, value);
-            if (minTargetFieldValue <= fieldValue && fieldValue <= maxTargetFieldValue)
+            if (minTargetValueOfTheField <= fieldValue && fieldValue <= maxTargetValueOfTheField)
             {
-                targetFieldValue = fieldValue;
+                targetValueOfTheField = fieldValue;
             }
-            else if (minTargetFieldValue > fieldValue)
+            else if (minTargetValueOfTheField > fieldValue)
             {
-                targetFieldValue = minTargetFieldValue;
+                targetValueOfTheField = minTargetValueOfTheField;
             }
             else
             {
-                targetFieldValue = maxTargetFieldValue;
+                targetValueOfTheField = maxTargetValueOfTheField;
             }
         }
-        public int GetMaxTargetFieldValue()
+        /// <summary>
+        /// Method returns a maximum target value of the field
+        /// </summary>
+        /// <returns></returns>
+        public int GetMaxTargetValueOfTheField()
         {
-            return (int)Math.Log((int)maxTargetFieldValue, 2);
+            return (int)Math.Log((int)maxTargetValueOfTheField, 2);
         }
-        public int GetMinTargetFieldValue()
+        /// <summary>
+        /// Method returns a minimum target value of the field
+        /// </summary>
+        /// <returns></returns>
+        public int GetMinTargetValueOfTheField()
         {
-            return (int)Math.Log((int)minTargetFieldValue, 2);
+            return (int)Math.Log((int)minTargetValueOfTheField, 2);
         }
-        public int GetTargetFieldValue()
+        /// <summary>
+        /// Method returns a target value of the field
+        /// </summary>
+        /// <returns></returns>
+        public int GetTargetValueOfTheField()
         {
-            return (int)Math.Log((int)targetFieldValue, 2);
+            return (int)Math.Log((int)targetValueOfTheField, 2);
         }
-        public String GetTargetFieldValueToString()
+        /// <summary>
+        /// Method returns a target value of the field to win the game as string
+        /// </summary>
+        /// <returns></returns>
+        public String GetTargetValueOfTheFieldString()
         {
-            return ((int)targetFieldValue).ToString();
+            return ((int)targetValueOfTheField).ToString();
         }
     }
 

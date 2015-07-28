@@ -4,6 +4,9 @@ using Windows.UI;
 using GameModel = _2048_3d_game.Model;
 namespace _2048_3d_game.View
 {
+    /// <summary>
+    /// 
+    /// </summary>
     static class FieldBackgroundColor
     {
         private static Color[] colors = {   Colors.LightGray,           //empty field
@@ -22,13 +25,19 @@ namespace _2048_3d_game.View
 
         private static List<Color> availableFieldBackgroundColors = new List<Color>(colors);
 
+        /// <summary>
+        /// Method returns color correlated to the value of the field
+        /// </summary>
+        /// <param name="value">Field value</param>
+        /// <returns>Color</returns>
         public static Color GetColorForFieldBackground(GameModel.FieldValue value)
         {
             if (value == GameModel.GameBoardModel.emptyField)
             {
                 return availableFieldBackgroundColors[0];
             }
-            else if (GameModel.GameBoardModel.firstFieldValue <= value && value <= GameModel.GameBoardModel.lastFieldValue)
+            else if (GameModel.GameBoardModel.firstFieldValue <= value 
+                && value <= GameModel.GameBoardModel.lastFieldValue)
             {
                 int index = (int)Math.Log((int)value, 2);
                 return availableFieldBackgroundColors[index];

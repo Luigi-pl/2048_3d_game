@@ -20,20 +20,23 @@ using Controller = _2048_3d_game.Controller;
 
 namespace _2048_3d_game
 {
+    /// <summary>
+    /// Game page.
+    /// </summary>
     public sealed partial class GamePage : Page
     {
         GestureRecognizer gestureRecognizer = new Windows.UI.Input.GestureRecognizer();
         Windows.UI.Xaml.UIElement element;
 
         Controller.GameController mainController;
-        Controller.GestureController gestureController;
+        Controller.GestureInterpreter gestureController;
 
         public GamePage()
         {
             this.InitializeComponent();
 
             mainController = new Controller.GameController(ref this.MainBoard, ref this.BestScoreNumber, ref this.ActualScoreNumber);
-            gestureController = new Controller.GestureController();
+            gestureController = new Controller.GestureInterpreter();
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
             GestureInputProcessor(gestureRecognizer, this.MainBoard);
@@ -77,7 +80,7 @@ namespace _2048_3d_game
 
         void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
         {
-            mainController.UndoMovement();
+            mainController.WithdrawLastMovement();
             e.Handled = true;
         }
 

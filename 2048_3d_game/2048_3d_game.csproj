@@ -98,7 +98,7 @@
     <Compile Include="Controller\GameController.cs" />
     <Compile Include="Model\GameHighScoresModel.cs" />
     <Compile Include="Model\GameSettings.cs" />
-    <Compile Include="Controller\GestureController.cs" />
+    <Compile Include="Controller\GestureInterpreter.cs" />
     <Compile Include="Exceptions\NoFreeFieldException.cs" />
     <Compile Include="GamePage.xaml.cs">
       <DependentUpon>GamePage.xaml</DependentUpon>
@@ -106,7 +106,6 @@
     <Compile Include="Model\EmptyFieldPositionFactory.cs" />
     <Compile Include="Model\EmptyFields.cs" />
     <Compile Include="Model\FieldPosition.cs" />
-    <Compile Include="Model\FieldValueFactory.cs" />
     <Compile Include="Model\GameBoardModel.cs" />
     <Compile Include="Model\GameScoreModel.cs" />
     <Compile Include="Model\Model.cs" />

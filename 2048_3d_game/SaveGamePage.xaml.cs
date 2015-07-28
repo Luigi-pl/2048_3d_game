@@ -18,7 +18,7 @@ using _2048_3d_game.Exceptions;
 namespace _2048_3d_game
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// Save game page.
     /// </summary>
     public sealed partial class SaveGamePage : Page
     {
@@ -42,6 +42,8 @@ namespace _2048_3d_game
                 Windows.Graphics.Display.DisplayOrientations.Portrait;
             gameToSave = (String) e.Parameter;
         }
+
+
         private void PrepareSaveGameButtons()
         {
             PrepareSaveGameButton(this.SaveGame1, DataLoader.saveGame_Name_First);

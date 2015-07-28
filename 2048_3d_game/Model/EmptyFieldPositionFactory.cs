@@ -2,6 +2,9 @@
 using _2048_3d_game.Exceptions;
 namespace _2048_3d_game.Model
 {
+    /// <summary>
+    /// Class is used to select a random empty field
+    /// </summary>
     static class EmptyFieldPositionFactory
     {
         private static Random generator = new Random();

@@ -4,11 +4,13 @@ using UIX = Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Shapes;
-
 using GameModel = _2048_3d_game.Model;
 
 namespace _2048_3d_game.View
 {
+    /// <summary>
+    /// Class is used to show single field
+    /// </summary>
     class FieldView
     {
         private UIX.Shapes.Rectangle background;
@@ -17,18 +19,25 @@ namespace _2048_3d_game.View
         private UIX.Controls.Viewbox contentBox;
         private GameModel.FieldValue fieldValue;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="value">Field value</param>
         public FieldView(GameModel.FieldValue value)
         {
-            CreateField();
-
-            PrepareBackground();
-            PrepareBackgroundBorder();
-
-            PrepareTextBlock();
-            PrepareContentBox();
+            InitializeBackground();
+            InitializeTextBlock();
+            InitializeContentBox();
 
             UpdateField(value);
         }
+
+        /// <summary>
+        /// Method is used to insert single field to layer(grid of fields 3x3).
+        /// </summary>
+        /// <param name="layer">grid of fields</param>
+        /// <param name="x">x position</param>
+        /// <param name="y">y position</param>
         public void InsertFieldIntoLayer(ref UIX.Controls.Grid layer, int x, int y)
         {
             Grid.SetColumn(backgroundBorder, x);
@@ -40,6 +49,10 @@ namespace _2048_3d_game.View
             layer.Children.Add(backgroundBorder);
             layer.Children.Add(contentBox);
         }
+        /// <summary>
+        /// Method updates value of field
+        /// </summary>
+        /// <param name="value">New value</param>
         public void UpdateField(GameModel.FieldValue value)
         {
             SetFieldValue(value);
@@ -47,10 +60,17 @@ namespace _2048_3d_game.View
             UpdateTextBlock();
         }
         /////////////////////////////////////////////////////////////////////////////
+        /// <summary>
+        /// Method sets field value
+        /// </summary>
+        /// <param name="value"></param>
         private void SetFieldValue(GameModel.FieldValue value)
         {
             this.fieldValue = value;
         }
+        /// <summary>
+        /// Method updates text inside text block
+        /// </summary>
         private void UpdateTextBlock()
         {
             if (fieldValue == 0)
@@ -62,6 +82,9 @@ namespace _2048_3d_game.View
                 content.Text = ((int)fieldValue).ToString();
             }
         }
+        /// <summary>
+        /// Method fills field backgroud with color correlated to the value of the field
+        /// </summary>
         private void FillBackground()
         {
             Color newBackgroundColor = FieldBackgroundColor.GetColorForFieldBackground(fieldValue);
@@ -69,33 +92,37 @@ namespace _2048_3d_game.View
             background.Fill = brush;
         }
         /////////////////////////////////////////////////////////////////////////////
-        private void CreateField()
+        /// <summary>
+        /// Method initializes and sets background appearance 
+        /// </summary>
+        private void InitializeBackground()
         {
             background = new UIX.Shapes.Rectangle();
-            backgroundBorder = new Border();
-            content = new UIX.Controls.TextBlock();
-            contentBox = new UIX.Controls.Viewbox();
-        }
-        private void PrepareBackground()
-        {
             background.Margin = new UIX.Thickness(0);
-        }
-        private void PrepareBackgroundBorder()
-        {
+
+            backgroundBorder = new Border();
             Color borderColor = Colors.White;
             backgroundBorder.BorderBrush = new UIX.Media.SolidColorBrush(borderColor);
             backgroundBorder.BorderThickness = new UIX.Thickness(2);
             backgroundBorder.Child = background;
         }
-        private void PrepareTextBlock()
+        /// <summary>
+        /// Method initializes and sets text block appearance 
+        /// </summary>
+        private void InitializeTextBlock()
         {
+            content = new UIX.Controls.TextBlock();
             content.TextAlignment = UIX.TextAlignment.Center;
             content.VerticalAlignment = UIX.VerticalAlignment.Center;
             content.HorizontalAlignment = UIX.HorizontalAlignment.Center;
             content.Foreground = new SolidColorBrush(Colors.White);
         }
-        private void PrepareContentBox()
+        /// <summary>
+        /// Method initializes and sets view box appearance 
+        /// </summary>
+        private void InitializeContentBox()
         {
+            contentBox = new UIX.Controls.Viewbox();
             contentBox.Stretch = Stretch.Uniform;
             contentBox.Height = Double.NaN;
             contentBox.Width = Double.NaN;
